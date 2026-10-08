@@ -1,4 +1,5 @@
 // Generates the placeholder illustrations in src/assets/images as WebP.
+// upperkai-jambcbt-practice.webp is a real screenshot and is not generated here.
 // Run once with `npm run illustrations`. Replace any file with a real
 // screenshot or photo of the same name and size when you have one.
 import sharp from 'sharp';
@@ -67,7 +68,6 @@ const productShot = (screen, accentSide) => svg(1200, 800, `${shadow}
   ${phone(600, 420, screens[screen])}`);
 
 const images = {
-  'upperkai-jambcbt-practice': [1200, 800, productShot('list', true)],
   'upperkai-couples-guide-preview': [1200, 800, productShot('chart', false)],
   'upperkai-dating-app-preview': [1200, 800, productShot('calendar', true)],
 

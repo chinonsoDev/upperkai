@@ -5,7 +5,7 @@ tagline: "Practise real JAMB questions, sit timed CBT mocks and see how ready yo
 description: "JambCBT by Upperkai: practise real JAMB questions, sit timed CBT mocks and see how ready you are before exam day."
 status: available
 image: ../../assets/images/upperkai-jambcbt-practice.webp
-imageAlt: "Illustration of the JambCBT practice screen on a phone"
+imageAlt: "The JambCBT home screen on a phone, with Take JAMB CBT, Practise Quiz and Challenges"
 category: "EducationalApplication"
 operatingSystem: "Web"
 appUrl: "https://jambcbt.app"
@@ -18,18 +18,22 @@ JAMB is a computer-based test, and many candidates meet that format for the firs
 
 ## What you can do with JambCBT
 
-### Practise real JAMB questions
+### Take a JAMB CBT mock
 
-Work through real JAMB questions subject by subject, at your own pace.
+Sit timed mock exams in the same computer-based format as the real test.
 
-### Sit timed CBT mocks
+### Study topic by topic or year by year
 
-Take full mock exams against the clock, in the same computer-based format as the real test.
+Work through the official JAMB syllabus one topic at a time, or go year by year with past questions.
+
+### Practise quizzes and challenges
+
+Take quick practice quizzes, or beat quizzes set by other students and climb the leaderboard.
 
 ### See how ready you are
 
-Your results show where you are strong and where you need more practice, so you know what to study next.
+Sign in and your scores, streaks and readiness are saved to your account, so you can pick up right where you left off.
 
 ## Who it is for
 
-JambCBT is for anyone preparing for JAMB who wants to practise in the real test format. It runs in the browser at [jambcbt.app](https://jambcbt.app), and you can add it to your phone's home screen like an app.
+JambCBT is for anyone preparing for JAMB who wants to practise in the real test format. It runs in the browser at [jambcbt.app](https://jambcbt.app), and you can install it to your phone's home screen, with no app store and no big download.
