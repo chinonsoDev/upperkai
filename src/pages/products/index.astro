@@ -22,14 +22,14 @@ const itemList = {
 
 <Base
   title="Products | Upperkai"
-  description="Explore the apps Upperkai builds to make everyday tasks simpler and faster. See what we have shipped and what is coming next."
+  description={`Explore the apps Upperkai builds to make everyday tasks simpler and faster. See what we have shipped${comingSoon.length > 0 ? ' and what is coming next' : ''}.`}
   schema={[itemList]}
 >
   <section class="page-head">
     <div class="container">
       <span class="eyebrow">Products</span>
       <h1>Apps that make everyday tasks simpler</h1>
-      <p class="lead">Each Upperkai product takes on one everyday job and does it well. Here is what we have shipped, and what is coming next.</p>
+      <p class="lead">Each Upperkai product takes on one everyday job and does it well. Here is what we have shipped{comingSoon.length > 0 && ', and what is coming next'}.</p>
     </div>
   </section>
 
@@ -38,7 +38,7 @@ const itemList = {
       <div class="container">
         <h2 id="available-title">Available now</h2>
         <div class="card-grid cols-3 mt-32">
-          {available.map((p) => <ProductCard product={p} />)}
+          {available.map((p) => <ProductCard product={p} wide={available.length === 1} />)}
         </div>
       </div>
     </section>
@@ -50,7 +50,7 @@ const itemList = {
         <h2 id="soon-title">Coming next</h2>
         <p class="lead">Products we are building now. Want to hear when they launch? <a href="/contact">Get in touch</a> or subscribe below.</p>
         <div class="card-grid cols-3 mt-32">
-          {comingSoon.map((p) => <ProductCard product={p} />)}
+          {comingSoon.map((p) => <ProductCard product={p} wide={comingSoon.length === 1} />)}
         </div>
       </div>
     </section>

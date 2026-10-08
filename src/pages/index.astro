@@ -115,7 +115,7 @@ const website = { '@type': 'WebSite', '@id': `${site.url}/#website`, name: site.
         <p class="lead">Focused apps that each do one everyday job well, so you can get it done and get on with your day.</p>
       </div>
       <div class="card-grid cols-3">
-        {products.map((p) => <ProductCard product={p} />)}
+        {products.map((p) => <ProductCard product={p} wide={products.length === 1} />)}
       </div>
       <p class="mt-32"><a class="text-link" href="/products">See all Upperkai products</a></p>
     </div>

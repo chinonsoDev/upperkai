@@ -207,6 +207,14 @@ a:hover { color: var(--purple-dark); }
 /* The whole card is clickable through the title link. */
 .card .stretched::before { content: ''; position: absolute; inset: 0; }
 .card h3 a { color: var(--ink); text-decoration: none; }
+/* A product alone in its grid fills the row instead of leaving two empty columns. */
+.card-wide { grid-column: 1 / -1; }
+@media (min-width: 700px) {
+  .card-wide { flex-direction: row; }
+  .card-wide .card-media { flex: 0 0 55%; }
+  .card-wide .card-body { justify-content: center; padding: 40px; }
+  .card-wide .text-link { margin-top: 0; }
+}
 
 .pill {
   align-self: flex-start; font-size: 0.8125rem; font-weight: 700; padding: 4px 12px; border-radius: 999px;

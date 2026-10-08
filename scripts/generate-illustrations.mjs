@@ -68,9 +68,6 @@ const productShot = (screen, accentSide) => svg(1200, 800, `${shadow}
   ${phone(600, 420, screens[screen])}`);
 
 const images = {
-  'upperkai-couples-guide-preview': [1200, 800, productShot('chart', false)],
-  'upperkai-dating-app-preview': [1200, 800, productShot('calendar', true)],
-
   // Purpose first: a target with the arrow heading for the centre.
   'upperkai-purpose-first-illustration': [1200, 900, svg(1200, 900, `
     <circle cx="600" cy="450" r="330" fill="${L}" opacity="0.5"/>
