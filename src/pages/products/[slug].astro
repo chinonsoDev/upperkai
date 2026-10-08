@@ -5,7 +5,6 @@ import { existsSync } from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductCard from '../../components/ProductCard.astro';
-import PostCard from '../../components/PostCard.astro';
 import { site, absolute } from '../../site';
 
 export async function getStaticPaths() {
@@ -24,9 +23,6 @@ const others = (await getCollection('products'))
   .filter((p) => p.id !== product.id)
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 2);
-const posts = (await getCollection('blog', (p) => !p.data.draft && p.data.product?.id === product.id))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
 
 const url = `/products/${product.id}`;
 const shareImage = existsSync(`public/og/products/${product.id}.jpg`) ? `/og/products/${product.id}.jpg` : site.shareImage;
@@ -76,17 +72,6 @@ const app = {
       <Content />
     </div>
   </section>
-
-  {posts.length > 0 && (
-    <section class="section" aria-labelledby="posts-title">
-      <div class="container">
-        <h2 id="posts-title">From the blog</h2>
-        <div class="card-grid cols-3 mt-32">
-          {posts.map((p) => <PostCard post={p} headingLevel="h3" />)}
-        </div>
-      </div>
-    </section>
-  )}
 
   {others.length > 0 && (
     <section class="section pt-0" aria-labelledby="more-title">

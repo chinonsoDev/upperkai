@@ -20,7 +20,6 @@ const products = (await getCollection('products')).sort((a, b) => a.data.order -
         <li><a href="/products">All Upperkai products</a></li>
         {products.map((p) => <li><a href={`/products/${p.id}`}>{p.data.name}</a></li>)}
         <li><a href="/about">About Upperkai</a></li>
-        <li><a href="/blog">The Upperkai blog</a></li>
       </ul>
     </div>
   </section>

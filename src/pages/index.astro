@@ -48,10 +48,7 @@ const organization = {
   email: site.email,
   description: 'Upperkai builds purposeful software that simplifies everyday tasks and improves the lives of the people who use it.',
   sameAs: site.social.map((s) => s.url).filter((u) => !isPlaceholder(u)),
-  contactPoint: [
-    { '@type': 'ContactPoint', contactType: 'customer support', email: site.supportEmail },
-    { '@type': 'ContactPoint', contactType: 'general enquiries', email: site.email },
-  ],
+  contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email }],
 };
 const website = { '@type': 'WebSite', '@id': `${site.url}/#website`, name: site.name, url: site.url, publisher: { '@id': `${site.url}/#organization` } };
 ---
@@ -70,12 +67,6 @@ const website = { '@type': 'WebSite', '@id': `${site.url}/#website`, name: site.
           <a class="btn btn-primary" href="/products">Explore our products</a>
           <a class="btn btn-secondary" href="/contact">Get in touch</a>
         </div>
-        <ul class="chips" aria-label="Quick links">
-          <li><a href="/products">See our products</a></li>
-          <li><a href="/about">About Upperkai</a></li>
-          <li><a href="/contact">Partner with us</a></li>
-          <li><a href="/blog">Read the blog</a></li>
-        </ul>
       </div>
       <div class="hero-art" aria-hidden="true">
         <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg">
@@ -97,13 +88,6 @@ const website = { '@type': 'WebSite', '@id': `${site.url}/#website`, name: site.
           </g>
         </svg>
       </div>
-    </div>
-  </section>
-
-  <section class="strip" aria-labelledby="strip-label">
-    <div class="container strip-inner">
-      <h2 id="strip-label" class="strip-label">Products by Upperkai</h2>
-      {products.map((p) => <a href={`/products/${p.id}`}>{p.data.name}</a>)}
     </div>
   </section>
 

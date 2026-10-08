@@ -10,10 +10,7 @@ const contactPage = {
     '@type': 'Organization',
     name: site.name,
     email: site.email,
-    contactPoint: [
-      { '@type': 'ContactPoint', contactType: 'customer support', email: site.supportEmail },
-      { '@type': 'ContactPoint', contactType: 'general enquiries', email: site.email },
-    ],
+    contactPoint: [{ '@type': 'ContactPoint', contactType: 'customer support', email: site.email }],
   },
 };
 ---
@@ -66,12 +63,8 @@ const contactPage = {
       <h2 id="direct-title">Prefer email?</h2>
       <dl>
         <div>
-          <dt>General, partnerships and press</dt>
+          <dt>Questions, product help, partnerships and press</dt>
           <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
-        </div>
-        <div>
-          <dt>Help with an Upperkai product</dt>
-          <dd><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></dd>
         </div>
         <div>
           <dt>Reply time</dt>

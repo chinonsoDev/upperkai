@@ -97,14 +97,6 @@ const images = {
     ${arrow(380, 230, 440, W, 11)}
     <circle cx="1040" cy="150" r="90" fill="${L}"/>`)],
 
-  'upperkai-blog-choosing-problems-cover': [1200, 630, svg(1200, 630, `
-    ${Array.from({ length: 24 }, (_, i) => `<circle cx="${150 + (i % 8) * 130}" cy="${150 + Math.floor(i / 8) * 165}" r="${i === 13 ? 52 : 26}" fill="${i === 13 ? P : L}"/>`).join('')}`)],
-  'upperkai-blog-simple-software-cover': [1200, 630, svg(1200, 630, `
-    <path d="M120 470 C 300 120, 420 520, 600 300 S 900 120, 1080 200" fill="none" stroke="${L}" stroke-width="28" stroke-linecap="round"/>
-    <path d="M120 520 L1080 520" stroke="${P}" stroke-width="28" stroke-linecap="round"/>`)],
-  'upperkai-blog-refining-after-launch-cover': [1200, 630, svg(1200, 630, `
-    ${[0, 1, 2, 3, 4].map((i) => `<rect x="${140 + i * 190}" y="${400 - i * 60}" width="150" height="${90 + i * 60}" rx="24" fill="${i === 4 ? P : L}"/>`).join('')}
-    ${arrow(960, 60, 150, P, 12)}`)],
 };
 
 await mkdir(OUT, { recursive: true });

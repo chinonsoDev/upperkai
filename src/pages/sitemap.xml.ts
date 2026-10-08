@@ -22,10 +22,6 @@ export const GET: APIRoute = async () => {
     urls.push({ loc: absolute(`/products/${p.id}`) });
   }
 
-  for (const post of await getCollection('blog', (p) => !p.data.draft)) {
-    urls.push({ loc: absolute(`/blog/${post.id}`), lastmod: post.data.updatedDate ?? post.data.pubDate });
-  }
-
   urls.sort((a, b) => a.loc.localeCompare(b.loc));
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

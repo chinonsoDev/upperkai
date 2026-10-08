@@ -1,4 +1,4 @@
-import { defineCollection, reference } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
@@ -29,24 +29,4 @@ const products = defineCollection({
     }),
 });
 
-// One Markdown file per post in src/content/blog. The file name is the URL.
-const blog = defineCollection({
-  loader: glob({ pattern: '*.md', base: './src/content/blog' }),
-  schema: ({ image }) =>
-    z.object({
-      title: z.string(),
-      description: z.string(),
-      author: z.string(),
-      // "Person" for a named author, "Organization" for the team
-      authorType: z.enum(['Person', 'Organization']).default('Organization'),
-      pubDate: z.coerce.date(),
-      updatedDate: z.coerce.date().optional(),
-      cover: image(),
-      coverAlt: z.string(),
-      // The product this post relates to; linked under "Related"
-      product: reference('products').optional(),
-      draft: z.boolean().default(false),
-    }),
-});
-
-export const collections = { products, blog };
+export const collections = { products };

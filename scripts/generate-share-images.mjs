@@ -1,5 +1,5 @@
 // Builds the 1200x630 Open Graph / Twitter images in public/og.
-// Runs before every build, so a new product or post gets its own image.
+// Runs before every build, so a new product gets its own image.
 import sharp from 'sharp';
 import { mkdir, readdir, readFile } from 'node:fs/promises';
 
@@ -56,13 +56,11 @@ async function render({ eyebrow, title, file }) {
 }
 
 await mkdir(new URL('public/og/products', root), { recursive: true });
-await mkdir(new URL('public/og/blog', root), { recursive: true });
 
 await render({ title: 'Software that makes everyday life simpler.', file: 'upperkai-share.jpg' });
 
 for (const [dir, eyebrow, key] of [
   ['products', 'Upperkai product', 'name'],
-  ['blog', 'Notes from Upperkai', 'title'],
 ]) {
   const folder = new URL(`src/content/${dir}/`, root);
   for (const name of (await readdir(folder)).filter((f) => f.endsWith('.md'))) {

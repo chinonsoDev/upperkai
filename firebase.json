@@ -4,6 +4,10 @@
     "predeploy": ["npm run build"],
     "cleanUrls": true,
     "trailingSlash": false,
+    "redirects": [
+      { "source": "/blog", "destination": "/", "type": 301 },
+      { "source": "/blog/**", "destination": "/", "type": 301 }
+    ],
     "headers": [
       {
         "source": "/_astro/**",
