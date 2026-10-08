@@ -13,12 +13,11 @@ export const site = {
     projectId: 'upperkai-ventures',
     apiKey: 'AIzaSyDrEk7lbUUigd2KRd98gTLHZkHwcR8T-9Y',
   },
-  // Replace each [handle] with the real profile. Profiles still holding a
-  // placeholder are left out of the Organization structured data.
+  // Shown in the footer and listed in the Organization structured data.
+  // The footer has an icon for LinkedIn too, for when that profile exists.
   social: [
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/company/[upperkai-handle]' },
-    { name: 'X', url: 'https://x.com/[upperkai-handle]' },
-    { name: 'Instagram', url: 'https://www.instagram.com/[upperkai-handle]' },
+    { name: 'X', url: 'https://x.com/upperkai' },
+    { name: 'Instagram', url: 'https://www.instagram.com/upperkaihq' },
   ],
 };
 
