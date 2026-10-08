@@ -3,7 +3,7 @@ import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
 // One Markdown file per product in src/content/products. The file name is the URL:
-// product-one.md -> /products/product-one
+// jambcbt.md -> /products/jambcbt
 const products = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/products' }),
   schema: ({ image }) =>

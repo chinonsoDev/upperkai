@@ -6,7 +6,6 @@ authorType: Organization
 pubDate: 2026-10-08
 cover: ../../assets/images/upperkai-blog-simple-software-cover.webp
 coverAlt: "A tangled lavender line above a straight purple line, showing a complicated path made simple"
-product: product-two
 ---
 
 Adding a feature is easy. Someone asks for it, it sounds reasonable, and a few days later there is a new button. Do that enough times and the product does everything and nobody can find anything. Keeping software simple is the harder path, and it is the one we take on purpose.

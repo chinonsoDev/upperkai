@@ -6,7 +6,6 @@ authorType: Organization
 pubDate: 2026-10-08
 cover: ../../assets/images/upperkai-blog-refining-after-launch-cover.webp
 coverAlt: "Five rising lavender and purple bars with the Upperkai arrow above them, representing steady improvement"
-product: product-three
 ---
 
 Launching a product is the point where guessing stops. Until real people use it for real tasks, every decision is a prediction. After launch we can find out which predictions were right, and refining is how we act on what we learn.

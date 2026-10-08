@@ -6,7 +6,7 @@ authorType: Organization
 pubDate: 2026-10-08
 cover: ../../assets/images/upperkai-blog-choosing-problems-cover.webp
 coverAlt: "Rows of lavender dots with one larger purple dot standing out, representing one problem chosen from many"
-product: product-one
+product: jambcbt
 ---
 
 Every product starts as a choice about what not to build. There are more annoying tasks in a normal day than any company could take on, so the first job is deciding which one deserves our time. These are the questions we ask before we write any code.

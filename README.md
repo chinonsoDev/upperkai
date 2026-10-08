@@ -15,7 +15,7 @@ Node 22.12 or newer.
 
 ## Adding content
 
-- **A product:** copy `src/content/products/product-one.md`, rename it (the file name becomes the URL, e.g. `budget-buddy.md` → `/products/budget-buddy`), fill in the front matter and put its screenshot in `src/assets/images/` as `upperkai-<product>-<screen>.webp`.
+- **A product:** copy `src/content/products/jambcbt.md`, rename it (the file name becomes the URL, e.g. `budget-buddy.md` → `/products/budget-buddy`), fill in the front matter and put its screenshot in `src/assets/images/` as `upperkai-<product>-<screen>.webp`.
 - **A blog post:** add a `.md` file to `src/content/blog/` with the same front matter as the existing posts. Set `product:` to the product's file name to link them under "Related".
 - **A new page:** add an `.astro` file in `src/pages/` using the `Base` layout with a unique `title` and `description`.
 
