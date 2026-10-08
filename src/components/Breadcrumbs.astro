@@ -1,0 +1,29 @@
+---
+import JsonLd from './JsonLd.astro';
+import { absolute } from '../site';
+
+interface Props {
+  // The last item is the current page.
+  items: { name: string; href: string }[];
+}
+const { items } = Astro.props;
+
+const schema = {
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.name,
+    item: absolute(item.href),
+  })),
+};
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol>
+    {items.map((item, i) =>
+      i === items.length - 1 ? <li><span aria-current="page">{item.name}</span></li> : <li><a href={item.href}>{item.name}</a></li>,
+    )}
+  </ol>
+</nav>
+<JsonLd data={schema} />

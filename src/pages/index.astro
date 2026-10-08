@@ -1,0 +1,186 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ProductCard from '../components/ProductCard.astro';
+import { site, absolute, isPlaceholder } from '../site';
+import purposeImg from '../assets/images/upperkai-purpose-first-illustration.webp';
+import simpleImg from '../assets/images/upperkai-simple-by-default-illustration.webp';
+import lastingImg from '../assets/images/upperkai-built-to-last-illustration.webp';
+import aboutImg from '../assets/images/upperkai-about-illustration.webp';
+
+const products = (await getCollection('products')).sort((a, b) => a.data.order - b.data.order);
+
+const steps = [
+  { title: 'Notice', text: 'We start with everyday tasks that take more time, effort or worry than they should, and with the people who do them.' },
+  { title: 'Build', text: 'We design and build the simplest product that genuinely solves the task, then put it in people’s hands early.' },
+  { title: 'Refine', text: 'We listen to how people use it, fix what gets in the way and keep removing anything that does not help.' },
+];
+
+const rows = [
+  {
+    title: 'Purpose first',
+    text: 'Every Upperkai product starts with a clear reason to exist. If we cannot say how it improves someone’s day, we do not build it.',
+    img: purposeImg,
+    alt: 'A target of lavender rings with the Upperkai arrow at its purple centre',
+  },
+  {
+    title: 'Simple by default',
+    text: 'Our products work well from the first tap, without setup or a manual. We keep screens clear and leave out anything that adds steps without adding value.',
+    img: simpleImg,
+    alt: 'A white checklist card with two tasks ticked off in purple',
+  },
+  {
+    title: 'Built to last',
+    text: 'We build software we can keep improving for years, not features that fade after launch. That means steady foundations, careful updates and support you can reach.',
+    img: lastingImg,
+    alt: 'Four rounded layers stacked from a wide purple base, with the Upperkai arrow above',
+  },
+];
+
+const organization = {
+  '@type': 'Organization',
+  '@id': `${site.url}/#organization`,
+  name: site.name,
+  legalName: site.legalName,
+  url: site.url,
+  logo: absolute(site.logo),
+  email: site.email,
+  description: 'Upperkai builds purposeful software that simplifies everyday tasks and improves the lives of the people who use it.',
+  sameAs: site.social.map((s) => s.url).filter((u) => !isPlaceholder(u)),
+  contactPoint: [
+    { '@type': 'ContactPoint', contactType: 'customer support', email: site.supportEmail },
+    { '@type': 'ContactPoint', contactType: 'general enquiries', email: site.email },
+  ],
+};
+const website = { '@type': 'WebSite', '@id': `${site.url}/#website`, name: site.name, url: site.url, publisher: { '@id': `${site.url}/#organization` } };
+---
+
+<Base
+  title="Upperkai | Purposeful Software for Everyday Life"
+  description="Upperkai builds purposeful software that simplifies everyday tasks and improves the lives of the people who use it. Explore our products."
+  schema={[organization, website]}
+>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <h1>Software that makes everyday life simpler.</h1>
+        <p class="lead">Upperkai builds purposeful products that take the friction out of everyday tasks and leave people better off for using them.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="/products">Explore our products</a>
+          <a class="btn btn-secondary" href="/contact">Get in touch</a>
+        </div>
+        <ul class="chips" aria-label="Quick links">
+          <li><a href="/products">See our products</a></li>
+          <li><a href="/about">About Upperkai</a></li>
+          <li><a href="/contact">Partner with us</a></li>
+          <li><a href="/blog">Read the blog</a></li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 520 480" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="400" cy="110" r="100" fill="#C4B1F9" opacity="0.55" />
+          <circle cx="90" cy="400" r="70" fill="#EEE8FE" />
+          <rect x="90" y="60" width="320" height="320" rx="76" fill="#5838B8" />
+          <path d="M173 182 V246 A58 58 0 0 0 289 246 V137 M250 176 L289 137 L328 176" fill="none" stroke="#fff" stroke-width="35" stroke-linecap="round" stroke-linejoin="round" />
+          <g>
+            <rect x="250" y="320" width="250" height="110" rx="24" fill="#fff" stroke="#1B1B1B" stroke-opacity="0.08" />
+            <circle cx="296" cy="375" r="22" fill="#5838B8" />
+            <path d="M286 375 l7 7 l13 -14" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="332" y="358" width="130" height="13" rx="6.5" fill="#1B1B1B" />
+            <rect x="332" y="381" width="90" height="11" rx="5.5" fill="#C4B1F9" />
+          </g>
+          <g>
+            <rect x="20" y="130" width="150" height="64" rx="20" fill="#fff" stroke="#1B1B1B" stroke-opacity="0.08" />
+            <rect x="42" y="152" width="70" height="11" rx="5.5" fill="#1B1B1B" />
+            <rect x="42" y="170" width="104" height="9" rx="4.5" fill="#C4B1F9" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" aria-labelledby="strip-label">
+    <div class="container strip-inner">
+      <h2 id="strip-label" class="strip-label">Products by Upperkai</h2>
+      {products.map((p) => <a href={`/products/${p.id}`}>{p.data.name}</a>)}
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="builds-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Our products</span>
+        <h2 id="builds-title">What Upperkai builds</h2>
+        <p class="lead">Focused apps that each do one everyday job well, so you can get it done and get on with your day.</p>
+      </div>
+      <div class="card-grid cols-3">
+        {products.map((p) => <ProductCard product={p} />)}
+      </div>
+      <p class="mt-32"><a class="text-link" href="/products">See all Upperkai products</a></p>
+    </div>
+  </section>
+
+  <section class="section section-tint" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">How we build</span>
+        <h2 id="how-title">Three steps, every time</h2>
+        <p class="lead">From the first idea to the hundredth update, every product goes through the same loop.</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => (
+          <li class="step">
+            <span class="step-num" aria-hidden="true">{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="principles-title">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">What we believe</span>
+        <h2 id="principles-title">The principles behind every product</h2>
+      </div>
+      <div class="rows">
+        {rows.map((r) => (
+          <div class="row">
+            <div class="row-media">
+              <Image src={r.img} alt={r.alt} widths={[600, 1200]} sizes="(min-width: 860px) 560px, 100vw" loading="lazy" />
+            </div>
+            <div class="row-text">
+              <h3>{r.title}</h3>
+              <p>{r.text}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section pt-0" aria-labelledby="about-title">
+    <div class="container">
+      <div class="teaser">
+        <div>
+          <span class="eyebrow">About Upperkai</span>
+          <h2 id="about-title">A software company with one aim</h2>
+          <p class="lead">We design, build and ship our own products, and we judge each one by a single test: does it make an everyday task simpler and leave people better off?</p>
+          <a class="text-link" href="/about">Learn what drives Upperkai</a>
+        </div>
+        <Image src={aboutImg} alt="The Upperkai arrow in white on a purple rounded square" widths={[500, 1000]} sizes="(min-width: 860px) 440px, 100vw" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="container" aria-labelledby="cta-title">
+    <div class="cta-band">
+      <h2 id="cta-title">Have a task that should be simpler?</h2>
+      <p>Tell us about it. Whether it is a partnership, press or an idea, we read every message.</p>
+      <a class="btn btn-primary" href="/contact">Get in touch</a>
+    </div>
+  </section>
+</Base>

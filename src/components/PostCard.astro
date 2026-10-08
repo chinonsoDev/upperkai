@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../site';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+  headingLevel?: 'h2' | 'h3';
+}
+const { post, headingLevel: H = 'h2' } = Astro.props;
+const { title, description, cover, coverAlt, pubDate, author } = post.data;
+---
+
+<article class="card">
+  <div class="card-media">
+    <Image src={cover} alt={coverAlt} widths={[400, 800]} sizes="(min-width: 1040px) 380px, (min-width: 700px) 50vw, 100vw" loading="lazy" />
+  </div>
+  <div class="card-body">
+    <p class="post-meta"><time datetime={pubDate.toISOString().slice(0, 10)}>{formatDate(pubDate)}</time><span>{author}</span></p>
+    <H><a class="stretched" href={`/blog/${post.id}`}>{title}</a></H>
+    <p>{description}</p>
+    <span class="text-link" aria-hidden="true">Read the post</span>
+  </div>
+</article>

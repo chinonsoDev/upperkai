@@ -1,0 +1,83 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+
+const contactPage = {
+  '@type': 'ContactPage',
+  name: 'Contact Upperkai',
+  url: `${site.url}/contact`,
+  mainEntity: {
+    '@type': 'Organization',
+    name: site.name,
+    email: site.email,
+    contactPoint: [
+      { '@type': 'ContactPoint', contactType: 'customer support', email: site.supportEmail },
+      { '@type': 'ContactPoint', contactType: 'general enquiries', email: site.email },
+    ],
+  },
+};
+---
+
+<Base
+  title="Contact Upperkai"
+  description="Get in touch with Upperkai about our products, partnerships or press. Send a message and we will reply within two working days."
+  schema={[contactPage]}
+>
+  <section class="page-head">
+    <div class="container">
+      <span class="eyebrow">Contact</span>
+      <h1>Get in touch</h1>
+      <p class="lead">Questions about our products, partnerships or press? Send us a message and we will reply within two working days.</p>
+    </div>
+  </section>
+
+  <section class="container contact-grid" aria-label="Contact options">
+    <!-- Netlify Forms picks this form up at deploy and emails each submission to the address set in the Netlify dashboard. -->
+    <form class="form" name="contact" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="company-website">
+      <h2 class="sr-only">Send a message</h2>
+      <input type="hidden" name="form-name" value="contact" />
+      <p class="hidden-field"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for="topic">What is it about?</label>
+        <select id="topic" name="topic">
+          <option>Our products</option>
+          <option>Partnerships</option>
+          <option>Press</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <p class="hint muted m-0">We use your details only to reply to you. See our <a href="/privacy">Privacy Policy</a>.</p>
+      <div><button class="btn btn-primary" type="submit">Send message</button></div>
+    </form>
+
+    <aside class="contact-card" aria-labelledby="direct-title">
+      <h2 id="direct-title">Prefer email?</h2>
+      <dl>
+        <div>
+          <dt>General, partnerships and press</dt>
+          <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+        </div>
+        <div>
+          <dt>Help with an Upperkai product</dt>
+          <dd><a href={`mailto:${site.supportEmail}`}>{site.supportEmail}</a></dd>
+        </div>
+        <div>
+          <dt>Reply time</dt>
+          <dd>Within two working days.</dd>
+        </div>
+      </dl>
+    </aside>
+  </section>
+</Base>

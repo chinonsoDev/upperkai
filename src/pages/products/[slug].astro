@@ -1,0 +1,101 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import { existsSync } from 'node:fs';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site, absolute } from '../../site';
+
+export async function getStaticPaths() {
+  const products = await getCollection('products');
+  return products.map((product) => ({ params: { slug: product.id }, props: { product } }));
+}
+
+interface Props {
+  product: CollectionEntry<'products'>;
+}
+const { product } = Astro.props;
+const { name, benefit, tagline, description, status, image, imageAlt, category, operatingSystem, appUrl, price } = product.data;
+const { Content } = await render(product);
+
+const others = (await getCollection('products'))
+  .filter((p) => p.id !== product.id)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 2);
+const posts = (await getCollection('blog', (p) => !p.data.draft && p.data.product?.id === product.id))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const url = `/products/${product.id}`;
+const shareImage = existsSync(`public/og/products/${product.id}.jpg`) ? `/og/products/${product.id}.jpg` : site.shareImage;
+
+const app = {
+  '@type': 'SoftwareApplication',
+  name,
+  description,
+  url: appUrl ?? absolute(url),
+  image: absolute(shareImage),
+  applicationCategory: category,
+  operatingSystem,
+  publisher: { '@type': 'Organization', name: site.name, legalName: site.legalName, url: site.url },
+  ...(price && { offers: { '@type': 'Offer', price: price.amount, priceCurrency: price.currency } }),
+};
+---
+
+<Base
+  title={`${name}: ${benefit} | Upperkai`}
+  description={description}
+  image={shareImage}
+  imageAlt={`${name} by Upperkai`}
+  schema={[app]}
+>
+  <div class="container page-head">
+    <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Products', href: '/products' }, { name, href: url }]} />
+    <div class="product-hero">
+      <div>
+        {status === 'coming-soon' ? <span class="pill pill-soon">Coming soon</span> : <span class="pill">Available</span>}
+        <h1 class="mt-16">{name}</h1>
+        <p class="lead">{tagline}</p>
+        <div class="btn-row">
+          {appUrl
+            ? <a class="btn btn-primary" href={appUrl} rel="noopener">Get {name}</a>
+            : <a class="btn btn-primary" href="/contact">{status === 'coming-soon' ? 'Hear when it launches' : `Ask about ${name}`}</a>}
+          <a class="btn btn-secondary" href="/products">All products</a>
+        </div>
+      </div>
+      <div class="media">
+        <Image src={image} alt={imageAlt} widths={[600, 1200]} sizes="(min-width: 960px) 560px, 100vw" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+  </div>
+
+  <section class="section section-tint" aria-label={`About ${name}`}>
+    <div class="container narrow prose">
+      <Content />
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section" aria-labelledby="posts-title">
+      <div class="container">
+        <h2 id="posts-title">From the blog</h2>
+        <div class="card-grid cols-3 mt-32">
+          {posts.map((p) => <PostCard post={p} headingLevel="h3" />)}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {others.length > 0 && (
+    <section class="section pt-0" aria-labelledby="more-title">
+      <div class="container">
+        <h2 id="more-title">More from Upperkai</h2>
+        <div class="card-grid cols-3 mt-32">
+          {others.map((p) => <ProductCard product={p} />)}
+        </div>
+      </div>
+    </section>
+  )}
+</Base>

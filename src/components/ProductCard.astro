@@ -1,0 +1,23 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  product: CollectionEntry<'products'>;
+  headingLevel?: 'h2' | 'h3';
+}
+const { product, headingLevel: H = 'h3' } = Astro.props;
+const { name, tagline, image, imageAlt, status } = product.data;
+---
+
+<article class="card">
+  <div class="card-media">
+    <Image src={image} alt={imageAlt} widths={[400, 800]} sizes="(min-width: 1040px) 380px, (min-width: 700px) 50vw, 100vw" loading="lazy" />
+  </div>
+  <div class="card-body">
+    {status === 'coming-soon' ? <span class="pill pill-soon">Coming soon</span> : <span class="pill">Available</span>}
+    <H><a class="stretched" href={`/products/${product.id}`}>{name}</a></H>
+    <p>{tagline}</p>
+    <span class="text-link" aria-hidden="true">See {name}</span>
+  </div>
+</article>

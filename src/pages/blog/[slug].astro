@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection, getEntry, render, type CollectionEntry } from 'astro:content';
+import { existsSync } from 'node:fs';
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PostCard from '../../components/PostCard.astro';
+import { site, absolute, formatDate } from '../../site';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => !p.data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+const { post } = Astro.props;
+const { title, description, author, authorType, pubDate, updatedDate, cover, coverAlt } = post.data;
+const { Content } = await render(post);
+const product = post.data.product ? await getEntry(post.data.product) : undefined;
+
+// Related: posts about the same product first, then the newest of the rest.
+const related = (await getCollection('blog', (p) => !p.data.draft && p.id !== post.id))
+  .sort((a, b) => {
+    const sameA = a.data.product?.id === product?.id ? 1 : 0;
+    const sameB = b.data.product?.id === product?.id ? 1 : 0;
+    return sameB - sameA || b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+  })
+  .slice(0, 3);
+
+const url = `/blog/${post.id}`;
+const shareImage = existsSync(`public/og/blog/${post.id}.jpg`) ? `/og/blog/${post.id}.jpg` : site.shareImage;
+
+const posting = {
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: absolute(shareImage),
+  datePublished: pubDate.toISOString(),
+  dateModified: (updatedDate ?? pubDate).toISOString(),
+  author: { '@type': authorType, name: author, ...(authorType === 'Organization' && { url: site.url }) },
+  publisher: { '@type': 'Organization', name: site.name, logo: { '@type': 'ImageObject', url: absolute(site.logo) } },
+  mainEntityOfPage: absolute(url),
+  ...(product && { about: { '@type': 'SoftwareApplication', name: product.data.name, url: absolute(`/products/${product.id}`) } }),
+};
+---
+
+<Base
+  title={`${title} | Upperkai`}
+  description={description}
+  image={shareImage}
+  imageAlt={title}
+  type="article"
+  publishedTime={pubDate}
+  modifiedTime={updatedDate}
+  schema={[posting]}
+>
+  <article>
+    <div class="container narrow page-head pb-0">
+      <Breadcrumbs items={[{ name: 'Home', href: '/' }, { name: 'Blog', href: '/blog' }, { name: title, href: url }]} />
+      <h1 class="post-title">{title}</h1>
+      <p class="lead">{description}</p>
+      <p class="post-meta">
+        <span>By {author}</span>
+        <span>Published <time datetime={pubDate.toISOString().slice(0, 10)}>{formatDate(pubDate)}</time></span>
+        {updatedDate && <span>Updated <time datetime={updatedDate.toISOString().slice(0, 10)}>{formatDate(updatedDate)}</time></span>}
+      </p>
+      <div class="post-cover">
+        <Image src={cover} alt={coverAlt} widths={[780, 1200]} sizes="(min-width: 780px) 716px, 100vw" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+    <div class="container narrow prose">
+      <Content />
+    </div>
+  </article>
+
+  <section class="section related mt-72" aria-labelledby="related-title">
+    <div class="container">
+      <h2 id="related-title">Related</h2>
+      {product && (
+        <div class="product-callout mt-32">
+          <div>
+            <h3 class="mb-6">{product.data.name}</h3>
+            <p class="muted">{product.data.tagline}</p>
+          </div>
+          <a class="btn btn-primary" href={`/products/${product.id}`}>See {product.data.name}</a>
+        </div>
+      )}
+      {related.length > 0 && (
+        <div class="card-grid cols-3">
+          {related.map((p) => <PostCard post={p} headingLevel="h3" />)}
+        </div>
+      )}
+      <p class="mt-32"><a class="text-link" href="/blog">All posts from Upperkai</a></p>
+    </div>
+  </section>
+</Base>

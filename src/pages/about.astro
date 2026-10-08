@@ -1,0 +1,83 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import aboutImg from '../assets/images/upperkai-about-illustration.webp';
+
+const values = [
+  { title: 'Purpose first', text: 'Every product needs a clear reason to exist: a real task, done often, that people would be glad to have simpler.' },
+  { title: 'Simple by default', text: 'Sensible defaults, clear words and as few steps as possible. Settings are there for those who need them, not as a substitute for decisions.' },
+  { title: 'Built to last', text: 'We look after what we ship. Products get steady improvements and real support, not a launch followed by silence.' },
+  { title: 'Respect for attention', text: 'We do not build products that try to keep you scrolling. Success means you finished your task and moved on.' },
+];
+---
+
+<Base
+  title="About Upperkai | Why We Build Purposeful Software"
+  description="Upperkai is a software company with one aim: products that simplify everyday tasks and leave people better off. Learn what drives us."
+>
+  <section class="page-head">
+    <div class="container product-hero pb-0">
+      <div>
+        <span class="eyebrow">About Upperkai</span>
+        <h1>Why we build purposeful software</h1>
+        <p class="lead">Upperkai is a software company with one aim: to build products that simplify everyday tasks and leave the people who use them better off.</p>
+      </div>
+      <div class="media">
+        <Image src={aboutImg} alt="The Upperkai arrow in white on a purple rounded square" widths={[600, 1200]} sizes="(min-width: 960px) 560px, 100vw" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" aria-labelledby="story-title">
+    <div class="container narrow prose">
+      <h2 id="story-title">What drives us</h2>
+      <p>A lot of everyday life runs through software, and a lot of that software makes simple things harder than they need to be. Too many steps, too many settings and too much asking for attention. We started Upperkai to build the opposite: products with a clear purpose that do their job and get out of the way.</p>
+      <p>We design, build and ship our own products. That lets us hold every one of them to the same standard and keep improving them long after launch.</p>
+      <p>[Add a few sentences on how Upperkai started, when and where. Keep it true and specific.]</p>
+
+      <h2>How we work</h2>
+      <h3>Notice</h3>
+      <p>We look for everyday tasks that cost people more time, effort or worry than they should, and we learn how people handle them today.</p>
+      <h3>Build</h3>
+      <p>We build the simplest product that genuinely solves the task and get it into people’s hands early.</p>
+      <h3>Refine</h3>
+      <p>We listen, fix what gets in the way and remove what does not help. You can read more about this on <a href="/blog">our blog</a>.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="values-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="values-title">What we hold ourselves to</h2>
+      </div>
+      <div class="card-grid">
+        {values.map((v) => (
+          <div class="step step-outline">
+            <h3>{v.title}</h3>
+            <p>{v.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-tint" aria-labelledby="company-title">
+    <div class="container narrow prose">
+      <h2 id="company-title">The company</h2>
+      <p>Upperkai is the trading name of Upperkai Ventures. [Add the registered address and registration number if you want them shown.]</p>
+      <p>[Add the team here when you are ready to introduce them: names, roles and a line about each person.]</p>
+      <p>For general enquiries write to <a href="mailto:hello@upperkai.com">hello@upperkai.com</a>. For help with one of our products, write to <a href="mailto:support@upperkai.com">support@upperkai.com</a>.</p>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="cta-title">
+    <div class="cta-band">
+      <h2 id="cta-title">See what we have built so far</h2>
+      <p>Every product is our answer to one everyday task that deserved to be simpler.</p>
+      <div class="btn-row center">
+        <a class="btn btn-primary" href="/products">Explore our products</a>
+        <a class="btn btn-secondary" href="/contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</Base>
