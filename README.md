@@ -32,16 +32,16 @@ Everything in `[square brackets]` is a placeholder. Search the project for `[` t
 - `src/pages/privacy.astro`, `src/pages/terms.astro`: dates, address, jurisdiction, providers. Have a lawyer review both.
 - `src/content/blog/*.md`: three starter posts by "The Upperkai team". Edit, re-date or replace them before launch.
 
-## Hosting (Netlify)
+## Hosting (Firebase)
 
-`netlify.toml` is set up for Netlify:
+`firebase.json` serves `dist/` on Firebase Hosting, with clean URLs (`/about`, not `/about.html`), no trailing slashes, long caching for `/_astro/*` and the security headers. `firestore.rules` holds the database rules for the forms.
 
-1. Connect the repository in Netlify. The build command and publish folder come from `netlify.toml`.
-2. Add `upperkai.com` as the primary domain and `www.upperkai.com` as an alias. HTTPS is issued automatically, and `www` redirects to the bare domain with a 301.
-3. **Forms:** the contact form and newsletter sign-up use Netlify Forms, which works without any code. In Site settings → Forms → Form notifications, add an email notification to `hello@upperkai.com` for the `contact` form. Newsletter sign-ups are listed under the `newsletter` form, and you can export them from there.
+1. Put the project ID in `.firebaserc` and the project ID and web API key in `src/site.ts` (`firebase`). The API key is in Project settings → Your apps → Web app.
+2. Deploy with `firebase deploy --only hosting,firestore`. This runs `npm run build` first.
+3. In Hosting → Add custom domain, add `upperkai.com`, then add `www.upperkai.com` and choose to redirect it to `upperkai.com`. Firebase issues HTTPS for both.
 4. After the first deploy, submit `https://upperkai.com/sitemap.xml` in Google Search Console and Bing Webmaster Tools.
 
-Netlify's free tier includes 100 form submissions a month.
+**Forms:** the contact form saves to the `contactMessages` collection and the newsletter sign-up to `newsletterSignups` in Firestore (`src/scripts/forms.ts`). Read them in the Firebase console under Firestore Database. The rules let the website add entries but not read, change or delete them. Firebase does not email you about new messages; check the console, or add the "Trigger Email" extension later.
 
 ## SEO checklist (built in)
 

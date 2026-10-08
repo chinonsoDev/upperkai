@@ -1,0 +1,38 @@
+rules_version = '2';
+
+// The website can only add contact messages and newsletter sign-ups.
+// Nobody can read, change or delete them from the browser; read them in the
+// Firebase console. Anything not matched below is denied.
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function text(value, max) {
+      return value is string && value.size() > 0 && value.size() <= max;
+    }
+    function email(value) {
+      return text(value, 254) && value.matches('^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$');
+    }
+    // The browser sets createdAt; allow for a clock that is a little off.
+    function now(value) {
+      return value is timestamp
+        && value > request.time - duration.value(1, 'h')
+        && value < request.time + duration.value(1, 'h');
+    }
+
+    match /contactMessages/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name', 'email', 'topic', 'message', 'createdAt'])
+        && request.resource.data.keys().hasAll(['name', 'email', 'topic', 'message', 'createdAt'])
+        && text(request.resource.data.name, 200)
+        && email(request.resource.data.email)
+        && text(request.resource.data.topic, 50)
+        && text(request.resource.data.message, 5000)
+        && now(request.resource.data.createdAt);
+    }
+
+    match /newsletterSignups/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['email', 'createdAt'])
+        && request.resource.data.keys().hasAll(['email', 'createdAt'])
+        && email(request.resource.data.email)
+        && now(request.resource.data.createdAt);
+    }
+  }
+}

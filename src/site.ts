@@ -7,6 +7,12 @@ export const site = {
   supportEmail: 'support@upperkai.com',
   logo: '/brand/upperkai-icon-512.png',
   shareImage: '/og/upperkai-share.jpg',
+  // The Firebase project the forms save to. A web API key only identifies
+  // the project; firestore.rules is what limits what it can do.
+  firebase: {
+    projectId: 'upperkai-ventures',
+    apiKey: 'AIzaSyDrEk7lbUUigd2KRd98gTLHZkHwcR8T-9Y',
+  },
   // Replace each [handle] with the real profile. Profiles still holding a
   // placeholder are left out of the Organization structured data.
   social: [

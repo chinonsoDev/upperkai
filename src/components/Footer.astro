@@ -63,16 +63,16 @@ const icons: Record<string, string> = {
         ))}
       </div>
 
-      <form class="signup" name="newsletter" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="company-website">
+      <form class="signup" name="newsletter" method="POST" action="/thanks" data-collection="newsletterSignups">
         <h2>Get updates from Upperkai</h2>
         <p>Occasional notes when we ship something new. No spam, and you can unsubscribe at any time.</p>
-        <input type="hidden" name="form-name" value="newsletter" />
         <p class="hidden-field"><label>Leave this empty <input name="company-website" tabindex="-1" autocomplete="off" /></label></p>
         <div class="signup-row">
           <label for="signup-email" class="sr-only">Email address</label>
           <input id="signup-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required />
           <button class="btn btn-light" type="submit">Subscribe</button>
         </div>
+        <p class="form-status" role="alert" hidden>That did not go through. Please try again in a moment.</p>
       </form>
     </div>
 
@@ -90,3 +90,8 @@ const icons: Record<string, string> = {
     </div>
   </div>
 </footer>
+
+<!-- The footer is on every page, so this also covers the contact form. -->
+<script>
+  import '../scripts/forms.ts';
+</script>
